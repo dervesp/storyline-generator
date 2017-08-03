@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES6",
+    "jsx": "react",
+    "lib": ["ES6", "DOM"],
+    "noImplicitAny": true,
+    "outDir": "./bin/build/",
+    "sourceMap": true
+  }
+}
