@@ -19,6 +19,14 @@ export namespace StoreTypes {
         return List<LifeYearSkillId>();
     }
 
+    export interface LifeYearStateId extends String {
+        _lifeYearStateIdBrand: string,
+    }
+    export type LifeYearStateIdList = List<LifeYearStateId>;
+    export function LifeYearStateIdList(): LifeYearStateIdList {
+        return List<LifeYearStateId>();
+    }
+
     export interface SkillKey extends String {
         _skillKeyBrand: string,
     }
@@ -27,9 +35,18 @@ export namespace StoreTypes {
         _skillValueBrand: string,
     }
 
+    export interface StateKey extends String {
+        _stateKeyBrand: string,
+    }
+
+    export interface StateValue extends Number {
+        _stateValueBrand: string,
+    }
+
     export type LifeYear = {
         id: LifeYearId,
         skills: LifeYearSkillIdList,
+        states: LifeYearStateIdList,
     }
     export type LifeYearList = List<LifeYear>;
     export function LifeYearList(): LifeYearList {
@@ -44,6 +61,16 @@ export namespace StoreTypes {
     export type LifeYearSkillList = List<LifeYearSkill>;
     export function LifeYearSkillList(): LifeYearSkillList {
         return List<LifeYearSkill>();
+    }
+
+    export type LifeYearState = {
+        id: LifeYearStateId,
+        key: StateKey,
+        value: StateValue,
+    }
+    export type LifeYearStateList = List<LifeYearState>;
+    export function LifeYearStateList(): LifeYearStateList {
+        return List<LifeYearState>();
     }
 
     export type LifeYearEntitiesMap = OrderedMap<LifeYearId, LifeYear>;
@@ -66,9 +93,20 @@ export namespace StoreTypes {
         allIds: LifeYearSkillIdList,
     }
 
+    export type LifeYearStateEntitiesMap = OrderedMap<LifeYearStateId, LifeYearState>;
+    export function LifeYearStateEntitiesMap(): LifeYearStateEntitiesMap {
+        return OrderedMap<LifeYearStateId, LifeYearState>();
+    }
+
+    export type LifeYearStateEntities = {
+        byId: LifeYearStateEntitiesMap,
+        allIds: LifeYearStateIdList,
+    }
+
     export type Entities = {
         lifeYears: LifeYearEntities,
         lifeYearSkills: LifeYearSkillEntities,
+        lifeYearStates: LifeYearStateEntities,
     }
 
     export type All = {

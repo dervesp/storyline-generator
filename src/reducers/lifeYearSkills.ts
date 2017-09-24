@@ -6,7 +6,7 @@ import {
     UPDATE_LIFE_YEAR_SKILL_ACTION_KEY, UpdateLifeYearSkillAction,
 } from "../actions";
 
-function addActivityEntry(state: StoreTypes.LifeYearSkillEntitiesMap, action: AddLifeYearSkillAction): StoreTypes.LifeYearSkillEntitiesMap {
+function addLifeYearSkill(state: StoreTypes.LifeYearSkillEntitiesMap, action: AddLifeYearSkillAction): StoreTypes.LifeYearSkillEntitiesMap {
     const lifeYearSkillId: StoreTypes.LifeYearSkillId = action.payload.lifeYearSkillId;
 
     const lifeYearSkill: StoreTypes.LifeYearSkill = {
@@ -40,7 +40,7 @@ function addLifeYearSkillId(state: StoreTypes.LifeYearSkillIdList, action: AddLi
 }
 
 const lifeYearSkillById: Reducer<StoreTypes.LifeYearSkillEntitiesMap> = createReducer(StoreTypes.LifeYearSkillEntitiesMap(), {
-    [ADD_LIFE_YEAR_SKILL_ACTION_KEY]: addActivityEntry,
+    [ADD_LIFE_YEAR_SKILL_ACTION_KEY]: addLifeYearSkill,
     [UPDATE_LIFE_YEAR_SKILL_ACTION_KEY]: updateLifeYearSkill,
 });
 

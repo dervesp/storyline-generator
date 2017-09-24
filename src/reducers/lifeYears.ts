@@ -4,6 +4,7 @@ import {StoreTypes} from "../store/index";
 import {
     ADD_LIFE_YEAR_ACTION_KEY, AddLifeYearAction,
     ADD_LIFE_YEAR_SKILL_ACTION_KEY, AddLifeYearSkillAction,
+    ADD_LIFE_YEAR_STATE_ACTION_KEY, AddLifeYearStateAction,
 } from "../actions/index";
 
 function addLifeYearEntry(state: StoreTypes.LifeYearEntitiesMap, action: AddLifeYearAction): StoreTypes.LifeYearEntitiesMap {
@@ -12,6 +13,7 @@ function addLifeYearEntry(state: StoreTypes.LifeYearEntitiesMap, action: AddLife
     const lifeYear: StoreTypes.LifeYear = {
         id: lifeYearId,
         skills: StoreTypes.LifeYearSkillIdList(),
+        states: StoreTypes.LifeYearStateIdList(),
     };
 
     return state.set(lifeYearId, lifeYear);
@@ -36,9 +38,23 @@ function addLifeYearSkill(state: StoreTypes.LifeYearEntitiesMap, action: AddLife
     });
 }
 
+function addLifeYearState(state: StoreTypes.LifeYearEntitiesMap, action: AddLifeYearStateAction): StoreTypes.LifeYearEntitiesMap {
+    const {payload} = action;
+    const lifeYearId: StoreTypes.LifeYearId = payload.lifeYearId;
+    const lifeYearStateId: StoreTypes.LifeYearStateId = payload.lifeYearStateId;
+
+    const lifeYear: StoreTypes.LifeYear = state.get(lifeYearId);
+
+    return state.set(lifeYearId, {
+        ...lifeYear,
+        states: lifeYear.states.push(lifeYearStateId),
+    });
+}
+
 const lifeYearById: Reducer<StoreTypes.LifeYearEntitiesMap> = createReducer(StoreTypes.LifeYearEntitiesMap(), {
     [ADD_LIFE_YEAR_ACTION_KEY]: addLifeYearEntry,
     [ADD_LIFE_YEAR_SKILL_ACTION_KEY]: addLifeYearSkill,
+    [ADD_LIFE_YEAR_STATE_ACTION_KEY]: addLifeYearState,
 });
 
 const lifeYearAllIds: Reducer<StoreTypes.LifeYearIdList> = createReducer(StoreTypes.LifeYearIdList(), {

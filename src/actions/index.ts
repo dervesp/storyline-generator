@@ -26,6 +26,27 @@ export type UpdateLifeYearSkillAction = {
     }
 }
 
+type AddLifeYearStateActionKeyType = "ADD_LIFE_YEAR_STATE";
+export const ADD_LIFE_YEAR_STATE_ACTION_KEY: AddLifeYearStateActionKeyType = "ADD_LIFE_YEAR_STATE";
+export type AddLifeYearStateAction = {
+    type: AddLifeYearStateActionKeyType,
+    payload: {
+        lifeYearId: StoreTypes.LifeYearId,
+        lifeYearStateId: StoreTypes.LifeYearStateId,
+    }
+}
+
+type UpdateLifeYearStateActionKeyType = "UPDATE_LIFE_YEAR_STATE";
+export const UPDATE_LIFE_YEAR_STATE_ACTION_KEY: UpdateLifeYearStateActionKeyType = "UPDATE_LIFE_YEAR_STATE";
+export type UpdateLifeYearStateAction = {
+    type: UpdateLifeYearStateActionKeyType,
+    payload: {
+        lifeYearStateId: StoreTypes.LifeYearStateId,
+        stateKey: StoreTypes.StateKey,
+        value: StoreTypes.StateValue,
+    }
+}
+
 type AddLifeYearActionKeyType = "ADD_LIFE_YEAR";
 export const ADD_LIFE_YEAR_ACTION_KEY: AddLifeYearActionKeyType = "ADD_LIFE_YEAR";
 export type AddLifeYearAction = {
@@ -37,7 +58,9 @@ export type AddLifeYearAction = {
 
 export type Action = AddLifeYearAction
     | AddLifeYearSkillAction
-    | UpdateLifeYearSkillAction;
+    | UpdateLifeYearSkillAction
+    | AddLifeYearStateAction
+    | UpdateLifeYearStateAction;
 
 export function AddLifeYearSkill(lifeYearId: StoreTypes.LifeYearId): AddLifeYearSkillAction {
     const lifeYearSkillId = generateId("lifeYearSkill") as any;
@@ -56,6 +79,28 @@ export function UpdateLifeYearSkill(lifeYearSkillId: StoreTypes.LifeYearSkillId,
         payload: {
             lifeYearSkillId,
             skillKey,
+            value,
+        },
+    };
+}
+
+export function AddLifeYearState(lifeYearId: StoreTypes.LifeYearId): AddLifeYearStateAction {
+    const lifeYearStateId = generateId("lifeYearState") as any;
+    return {
+        type: ADD_LIFE_YEAR_STATE_ACTION_KEY,
+        payload: {
+            lifeYearId,
+            lifeYearStateId,
+        },
+    };
+}
+
+export function UpdateLifeYearState(lifeYearStateId: StoreTypes.LifeYearStateId, stateKey: StoreTypes.StateKey, value: StoreTypes.StateValue): UpdateLifeYearStateAction {
+    return {
+        type: UPDATE_LIFE_YEAR_STATE_ACTION_KEY,
+        payload: {
+            lifeYearStateId,
+            stateKey,
             value,
         },
     };
