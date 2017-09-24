@@ -7,11 +7,11 @@ import {LifeYearSkillList} from "./LifeYearSkillList";
 
 interface OwnProps {
     lifeYearId: StoreTypes.LifeYearId,
-    lifeYearSkillIds: StoreTypes.LifeYearSkillId[],
+    lifeYearSkillIds: StoreTypes.LifeYearSkillIdList,
 }
 
 interface StateProps  {
-    lifeYearSkills: StoreTypes.LifeYearSkill[],
+    lifeYearSkills: StoreTypes.LifeYearSkillList,
     skillKeys: StoreTypes.SkillKey[],
 }
 
@@ -24,9 +24,9 @@ function mapStateToProps(state: StoreTypes.All, ownProps: OwnProps): StateProps 
     return {
         lifeYearSkills: getLifeYearSkills(state.entities.lifeYearSkills, ownProps.lifeYearSkillIds),
         skillKeys: [
-            "key1" as any,
-            "key2" as any,
-            "key3" as any,
+            "SkillKey_1" as any,
+            "SkillKey_2" as any,
+            "SkillKey_3" as any,
         ],
     }
 }

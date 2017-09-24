@@ -3,7 +3,7 @@ import {StoreTypes} from "../store/index";
 import {LifeYear} from "./LifeYear";
 
 interface ConnectedState {
-    lifeYears: StoreTypes.LifeYear[],
+    lifeYears: StoreTypes.LifeYearList,
 }
 
 interface ConnectedDispatch {

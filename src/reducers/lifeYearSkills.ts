@@ -6,7 +6,7 @@ import {
     UPDATE_LIFE_YEAR_SKILL_ACTION_KEY, UpdateLifeYearSkillAction,
 } from "../actions";
 
-function addActivityEntry(state: StoreTypes.LifeYearSkillEntitiesById, action: AddLifeYearSkillAction): StoreTypes.LifeYearSkillEntitiesById {
+function addActivityEntry(state: StoreTypes.LifeYearSkillEntitiesMap, action: AddLifeYearSkillAction): StoreTypes.LifeYearSkillEntitiesMap {
     const lifeYearSkillId: StoreTypes.LifeYearSkillId = action.payload.lifeYearSkillId;
 
     const lifeYearSkill: StoreTypes.LifeYearSkill = {
@@ -15,42 +15,36 @@ function addActivityEntry(state: StoreTypes.LifeYearSkillEntitiesById, action: A
         value: 0 as any,
     };
 
-    return {
-        ...state,
-        [lifeYearSkillId as any]: lifeYearSkill,
-    };
+    return state.set(lifeYearSkillId, lifeYearSkill);
 }
 
-function updateLifeYearSkill(state: StoreTypes.LifeYearSkillEntitiesById, action: UpdateLifeYearSkillAction): StoreTypes.LifeYearSkillEntitiesById {
+function updateLifeYearSkill(state: StoreTypes.LifeYearSkillEntitiesMap, action: UpdateLifeYearSkillAction): StoreTypes.LifeYearSkillEntitiesMap {
     const payload = action.payload;
     const lifeYearSkillId: StoreTypes.LifeYearSkillId = payload.lifeYearSkillId;
     const key: StoreTypes.SkillKey = payload.skillKey;
     const value: StoreTypes.SkillValue = payload.value;
 
-    const lifeYearSkill: StoreTypes.LifeYearSkill = state[lifeYearSkillId as any];
+    const lifeYearSkill: StoreTypes.LifeYearSkill = state.get(lifeYearSkillId);
 
-    return {
-        ...state,
-        [lifeYearSkillId as any]: {
-            ...lifeYearSkill,
-            key,
-            value,
-        },
-    };
+    return state.set(lifeYearSkillId, {
+        ...lifeYearSkill,
+        key,
+        value,
+    });
 }
 
-function addLifeYearSkillId(state: StoreTypes.LifeYearSkillEntitiesAllIds, action: AddLifeYearSkillAction): StoreTypes.LifeYearSkillEntitiesAllIds {
+function addLifeYearSkillId(state: StoreTypes.LifeYearSkillIdList, action: AddLifeYearSkillAction): StoreTypes.LifeYearSkillIdList {
     const lifeYearSkillId: StoreTypes.LifeYearSkillId = action.payload.lifeYearSkillId;
 
-    return state.concat(lifeYearSkillId as any);
+    return state.push(lifeYearSkillId);
 }
 
-const lifeYearSkillById: Reducer<StoreTypes.LifeYearSkillEntitiesById> = createReducer({}, {
+const lifeYearSkillById: Reducer<StoreTypes.LifeYearSkillEntitiesMap> = createReducer(StoreTypes.LifeYearSkillEntitiesMap(), {
     [ADD_LIFE_YEAR_SKILL_ACTION_KEY]: addActivityEntry,
     [UPDATE_LIFE_YEAR_SKILL_ACTION_KEY]: updateLifeYearSkill,
 });
 
-const lifeYearSkillAllIds: Reducer<StoreTypes.LifeYearSkillEntitiesAllIds> = createReducer([], {
+const lifeYearSkillAllIds: Reducer<StoreTypes.LifeYearSkillIdList> = createReducer(StoreTypes.LifeYearSkillIdList(), {
     [ADD_LIFE_YEAR_SKILL_ACTION_KEY]: addLifeYearSkillId,
 });
 
@@ -60,9 +54,9 @@ export default combineReducers<StoreTypes.LifeYearSkillEntities>({
 });
 
 export function getLifeYearSkill(state: StoreTypes.LifeYearSkillEntities, id: StoreTypes.LifeYearSkillId): StoreTypes.LifeYearSkill {
-    return state.byId[id as any];
+    return state.byId.get(id);
 }
 
-export function getLifeYearSkills(state: StoreTypes.LifeYearSkillEntities, ids: StoreTypes.LifeYearSkillId[]): StoreTypes.LifeYearSkill[] {
-    return ids.map((id: StoreTypes.LifeYearSkillId) => getLifeYearSkill(state, id));
+export function getLifeYearSkills(state: StoreTypes.LifeYearSkillEntities, ids: StoreTypes.LifeYearSkillIdList): StoreTypes.LifeYearSkillList {
+    return ids.map((id: StoreTypes.LifeYearSkillId) => getLifeYearSkill(state, id)) as StoreTypes.LifeYearSkillList;
 }

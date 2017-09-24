@@ -3,7 +3,7 @@ import {StoreTypes} from "../store/index";
 import {LifeYearSkill} from "./LifeYearSkill";
 
 interface ConnectedState {
-    lifeYearSkills: StoreTypes.LifeYearSkill[],
+    lifeYearSkills: StoreTypes.LifeYearSkillList,
     skillKeys: StoreTypes.SkillKey[],
 }
 

@@ -1,12 +1,22 @@
+import {List, OrderedMap} from "immutable";
+
 export namespace Store {
 }
 export namespace StoreTypes {
     export interface LifeYearId extends String {
         _lifeYearIdBrand: string,
     }
+    export type LifeYearIdList = List<LifeYearId>;
+    export function LifeYearIdList(): LifeYearIdList {
+        return List<LifeYearId>();
+    }
 
     export interface LifeYearSkillId extends String {
         _lifeYearSkillIdBrand: string,
+    }
+    export type LifeYearSkillIdList = List<LifeYearSkillId>;
+    export function LifeYearSkillIdList(): LifeYearSkillIdList {
+        return List<LifeYearSkillId>();
     }
 
     export interface SkillKey extends String {
@@ -19,7 +29,11 @@ export namespace StoreTypes {
 
     export type LifeYear = {
         id: LifeYearId,
-        skills: LifeYearSkillId[],
+        skills: LifeYearSkillIdList,
+    }
+    export type LifeYearList = List<LifeYear>;
+    export function LifeYearList(): LifeYearList {
+        return List<LifeYear>();
     }
 
     export type LifeYearSkill = {
@@ -27,21 +41,29 @@ export namespace StoreTypes {
         key: SkillKey,
         value: SkillValue,
     }
-
-    export type LifeYearEntitiesById = {[key: string]: LifeYear};
-    export type LifeYearEntitiesAllIds = LifeYearId[];
-
-    export type LifeYearEntities = {
-        byId: LifeYearEntitiesById,
-        allIds: LifeYearEntitiesAllIds,
+    export type LifeYearSkillList = List<LifeYearSkill>;
+    export function LifeYearSkillList(): LifeYearSkillList {
+        return List<LifeYearSkill>();
     }
 
-    export type LifeYearSkillEntitiesById = {[key: string]: LifeYearSkill};
-    export type LifeYearSkillEntitiesAllIds = LifeYearSkillId[];
+    export type LifeYearEntitiesMap = OrderedMap<LifeYearId, LifeYear>;
+    export function LifeYearEntitiesMap(): LifeYearEntitiesMap {
+        return OrderedMap<LifeYearId, LifeYear>();
+    }
+
+    export type LifeYearEntities = {
+        byId: LifeYearEntitiesMap,
+        allIds: LifeYearIdList,
+    }
+
+    export type LifeYearSkillEntitiesMap = OrderedMap<LifeYearSkillId, LifeYearSkill>;
+    export function LifeYearSkillEntitiesMap(): LifeYearSkillEntitiesMap {
+        return OrderedMap<LifeYearSkillId, LifeYearSkill>();
+    }
 
     export type LifeYearSkillEntities = {
-        byId: LifeYearSkillEntitiesById,
-        allIds: LifeYearSkillEntitiesAllIds,
+        byId: LifeYearSkillEntitiesMap,
+        allIds: LifeYearSkillIdList,
     }
 
     export type Entities = {

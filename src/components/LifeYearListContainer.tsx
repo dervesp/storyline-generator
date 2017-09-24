@@ -8,7 +8,7 @@ import {LifeYearList} from "./LifeYearList";
 interface OwnProps {}
 
 interface StateProps  {
-    lifeYears: StoreTypes.LifeYear[],
+    lifeYears: StoreTypes.LifeYearList,
 }
 
 interface DispatchProps {
